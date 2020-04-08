@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form  action="{{url_for('cat_manager.edit', id=result1['id'])}}"   enctype="multipart/form-data" method = "POST">
+               <div class="row">
+                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                       {%if error %}
+                       <div class="alert alert-danger">
+                                <h2>Errors</h2>
+                                  {%for key,values in error.items()%}
+                                <ul>
+                                    <li>{{values}}</li>
+                                </ul>
+                                {%endfor%}
+
+                            </div>
+                            {%endif%}
+                   </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                        <label  style=" margin-left:50px;"for="title">Title</label>
+                        <input type="text" style="width:50%; margin-left:50px;"class="form-control" id="title" name="title" value={{result1.title}} >
+
+                    </div>
+
+
+                       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                       <label  style=" margin-left:50px;" for="image">Image</label>
+                         <input type="file"  style="width:50%; margin-left:50px;" class="form-control" id="image" name="image"  value={{result1.image}}>
+
+
+                    </div>
+                    <div>
+
+                      <img src="{{ url_for('cat_manager.upload_img', filename=result1.image) }}" style="height:150px;  margin-left:70px; margin-top:20px;">
+
+               </div>
+
+                         <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">-->
+                         <!--<input type="checkbox" style="width:50%; margin-left:180px;"class="custom-control-input" name="ch" id="ch">-->
+                            <!--<label class="custom-control-label" style="margin-left:10px" for="ch" >Delete image</label>-->
+                        <!--</div>-->
+
+
+                     <div>
+                       <input type="checkbox" style="margin-top:200px; margin-left:70px;"name="ch" id="ch"style="">DELETE IMAGE
+                         <input style="margin-left:50px;" type="submit" >
+                   </div>
+                   <!--<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">-->
+                       <!--<input style="margin-left:50px;" type="submit" >-->
+                   <!--</div>-->
+               </div>
+            </form>
+
+{% endblock %}
+
+
+ <!--value="{{result_cat_list.title}}"-->
+

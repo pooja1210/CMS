@@ -1,0 +1,80 @@
+
+{% extends 'home.html' %}
+{% block content%}
+<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			{%for row in result%}
+			<div class="hero-slide-item set-bg" data-setbg="{{ url_for('sld_manager.get_article__image_path', filename=row.image) }}">
+				<div class="hs-text">
+					<h2 class="hs-title-1"><span>Healthy Recipes</span></h2>
+					<h2 class="hs-title-2"><span>from the best chefs</span></h2>
+					<h2 class="hs-title-3"><span>for all the foodies</span></h2>
+				</div>
+			</div>
+			{%endfor%}
+
+		</div>
+	</section>
+<br>
+<br>
+	<form action="{{ url_for('login_reg.login_image_link_view', slug=record.slug) }}"  method="post"  >
+
+
+
+
+		 <div class="row">
+  <div class="col-sm-4"><img class="rounded-circle" src="{{ url_for('article_manager_reg.get_article__image_path', filename=record.file) }}"></div>
+  <div class="col-sm-7"   style=" text-align: justify;">{{record['description']|safe}}</div>
+
+
+</div>
+		<br>
+		<br>
+
+
+
+		<section class="recipes-section spad pt-0">
+		<div class="container">
+			<div class="section-title">
+				<h2>Related recipes</h2>
+			</div>
+			<div class="row">
+				{%for row in  record_final%}
+				<div class="col-lg-4 col-md-6">
+					<div class="recipe">
+						<img  src="{{ url_for('article_manager_reg.get_article__image_path', filename=row.file) }}"> alt="">
+						<div class="recipe-info-warp">
+							<div class="recipe-info">
+								<h3>{{row.title}}</h3>
+
+
+
+
+
+								<div class="rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star is-fade"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+
+
+
+							</div>
+		</div>
+	</section>
+
+
+
+</form>
+
+
+    {% endblock %}
+

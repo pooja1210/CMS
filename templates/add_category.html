@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<form action="{{url_for('cat_manager.add_category')}}"  enctype="multipart/form-data" method = "POST">
+               <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                        <label for="title" style="margin-left:50px; font:bold;">Title</label>
+                        <input type="text" style="width:50%; margin-left:50px; "class="form-control" id="title" name="title" value="{{val['title']}}" >
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                       <label for="image" style="margin-left:50px;" >Image</label>
+                       <input type="file" style="width:50%;  margin-left:50px;"  class="form-control" id="image" name="image" >
+                   </div>
+                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                       <input  style="margin-left:50px;"type="submit" >
+                   </div>
+               </div>
+            </form>
+        </div>
+{% endblock %}
+
+

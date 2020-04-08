@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V9</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{ url_for('static',filename='material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='util.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static',filename='main.css') }}">
+
+
+
+
+</head>
+<body>
+
+
+
+
+
+	<div class="container-login100" >
+		 {% with messages = get_flashed_messages() %}
+                          {% if messages %}
+
+                            {% for message in messages %}
+                         <div class="alert alert-success alert-dismissible" >
+                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+
+                             <h1> {{ message }}</h1></div>
+                            {% endfor %}
+
+                          {% endif %}
+                        {% endwith %}
+		<div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
+                   {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+
+			<form class="login100-form validate-form" action="{{url_for('login')}}"  method="POST">
+				<span class="login100-form-title p-b-37">
+					Sign In
+				</span>
+
+
+				<div class="wrap-input100  m-b-20" data-validate="Enter username or email">
+					<input class="input100" type="text" name="username" placeholder="username or email">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100  m-b-25" data-validate = "Enter password">
+					<input class="input100" type="password" name="password" placeholder="password">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" type="submit">
+						Sign In
+					</button>
+				</div>
+                </form>
+			</form>
+
+
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+</body>
+</html>

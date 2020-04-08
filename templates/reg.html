@@ -1,0 +1,120 @@
+<div class="row">
+    <!-- ============================================================== -->
+    <!-- validation form -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+               {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+
+                            <div class="card">
+                                <h5 class="card-header">Register New User</h5>
+                                <div class="card-body">
+                                    <form class="needs-validation" action="{{url_for('user_reg.frm')}}"novalidate method="POST">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="fnm">First name</label>
+                                                <input type="text" class="form-control" id="fnm" placeholder="First name"  name="fname" value="{{val['a']}}">
+
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="lnm">Last name</label>
+                                                <input type="text" class="form-control" id="lnm" placeholder="Last name"  name="lname" value="{{val['b']}}">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="unm">User name</label>
+                                                <input type="text" class="form-control" id="unm" placeholder="User name"  name="user" value="{{val['c']}}">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="enm">Email</label>
+                                                <input type="text" class="form-control" id="enm" placeholder="Email"  name="email" value="{{val['d']}}"  onchange="myemail();">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="nnm">Phone number</label>
+                                                <input type="text" class="form-control" id="nnm"  name="number" value="{{val['e']}}">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="pnm">Password</label>
+                                                <input type="text" class="form-control" id="pnm" placeholder="password"  name="pwd" value="{{val['f']}}">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="cpnm">Confirm Password</label>
+                                                <input type="text" class="form-control" id="cpnm" placeholder="password"  name="conpwd">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="country">Country</label>
+                                                <select  class="form-control" id="country" placeholder="Country" name="cnm" value="{{val['g']}}" onchange="myfunc();">
+                                                <option value="0">Select</option>
+                                                   {% for row in record %}
+                                                <option value="{{row['id']}}">{{row['name']}}</option>
+                                                 {% endfor %}
+                                                </select>
+
+                                            </div>
+                                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="state">State</label>
+                                                <select class="form-control" id="state" placeholder="State" name="snm" value="{{val['i']}}" onchange="mystate();">
+                                                    <option value="0">Select</option>
+
+                                                </select>
+
+
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="city">City</label>
+                                                <select class="form-control" id="city" placeholder="City" name="cinm" value="{{val['h']}}">
+                                                <option value="0">Selcet</option>
+
+                                                </select>
+
+                                            </div>
+
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="znm">Zip</label>
+                                                <input type="text" class="form-control" id="znm" placeholder="Zip" name="znm" value="{{val['j']}}">
+
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <button class="btn btn-primary" type="submit">Submit form</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    <!-- ============================================================== -->
+    <!-- end validation form -->
+    <!-- ============================================================== -->
+</div>
+<script src="{{ url_for('static',filename='vendor/jquery/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='libs/js/ajax_country_state.js') }}"></script>

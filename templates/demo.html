@@ -1,0 +1,27 @@
+
+<script type="text/javascript">
+    jquery(document).ready(function(){
+        jquery(document).on('click','.delete-link',function(){
+            if(confirm("Want to delete this data"))
+            {
+                var mail=$(this).attr('data-id');
+                 $.ajax({
+                url:'/delete',
+                data:{em:email},
+                type:'GET',
+                dataType:'json',
+                success: function(response){
+                if(response.typr=='success'){
+                        window.location.href="http://127.0.0.1:5000/first";
+                        console.log("success")
+                }
+            },
+                 error:function(error){
+                    console.log(error)
+                 }
+            });
+            }
+            });
+        });
+
+</script>

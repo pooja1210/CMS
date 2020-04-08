@@ -1,0 +1,131 @@
+{% extends 'index.html' %}
+
+{% block add_cat_css%}
+<link href="{{ url_for('static', filename = 'css/summernote-bs4.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+<!-- ============================================================== -->
+<!-- valifation types -->
+<!-- ============================================================== -->
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+<div class="card">
+<h5 class="card-header">Edit Article</h5>
+<div class="card-body">
+<form action="{{url_for('article_manager_reg.edit_article',id=record.id)}}" method="POST" enctype="multipart/form-data" >
+<div class="form-group row">
+<label  class="col-12 col-sm-3 col-form-label text-sm-right" >Category-Title</label>
+<div class="col-12 col-sm-8 col-lg-6">
+<select  class="form-control form-control-lg" id="cat_id" name="cat_id" value="{{record.category_id}}" data-id="{{record.category_id}}">
+<option value="0" selected="selected">(Select Category)</option>
+{% for row in myresult %}
+<option value="{{ row['title'] }}" >{{ row.title}}</option>
+{% endfor %}
+
+</select>
+</div>
+</div>
+<div class="form-group row">
+<label class="col-12 col-sm-3 col-form-label text-sm-right">Title</label>
+<div class="col-12 col-sm-8 col-lg-6">
+<input type="text"  placeholder="Title" name="title" id="title" class="form-control" value="{{record.title}}">
+</div>
+</div>
+<div class="form-group row">
+<label for="decs" class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
+<div class="col-12 col-sm-8 col-lg-6 email editor col-form-label  p-0">
+<textarea class="form-control" id="decs" name="decs" rows="6" >{{ record['description'] }}</textarea>
+
+</div>
+
+</div>
+<div class="form-group row">
+<label class="col-sm-3 col-form-label text-sm-right" id="status" data-id="{{record.status}}">Status</label>{{record.status}}
+<div class="col-sm-6">
+<div class="custom-controls-stacked" >
+<label class="custom-control custom-radio">
+<input id="ck1" name="ck" type="radio" value="Publish"  class="custom-control-input" ><span class="custom-control-label">Published </span>
+</label>
+<label class="custom-control custom-radio">
+<input id="ck" name="ck" type="radio" value="UnPublish"   class="custom-control-input" ><span class="custom-control-label">Un-Published </span>
+</label>
+
+
+</div>
+</div>
+</div>
+<div class="form-group row">
+<label for="image" class="col-12 col-sm-3 col-form-label text-sm-right">Image</label>
+<div class="col-12 col-sm-8 col-lg-6">
+<input type="file" name="image"  id="image"  class="form-control">
+</div>
+</div>
+
+<div class="form-row">
+<div class="col-12 col-sm-3 col-form-label text-sm-right form-group form-check">
+
+
+<input class="form-check-input" type="checkbox" name="pt" id="pt" >
+
+<label class="form-check-label"   style="margin-left:0%;">Delete Image </label>
+
+
+</div>
+
+<div class="col-12 col-sm-8 col-lg-6">
+<img src="{{ url_for('article_manager_reg.get_article__image_path', filename=record.file) }}" style="height:150px;  margin-left:25%;">
+</div>
+
+</div>
+<div class="form-group row text-right">
+<div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+<button type="submit" class="btn btn-space btn-primary">Submit</button>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</form>
+</div>
+</div>
+</div>
+<!-- ============================================================== -->
+<!-- end valifation types -->
+<!-- ============================================================== -->
+</div>
+{% endblock %}
+
+
+{% block js_contant %}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+<script src="{{ url_for('static', filename = 'libs/js/summernote-bs4.js') }}"></script>
+
+<script>
+$(document).ready(function() {
+var id=jQuery('#cat_id').attr('data-id');
+jQuery('#cat_id').val(id);
+var status=jQuery('#status').attr('data-id');
+
+if (status=='Publish'){
+
+jQuery("#ck1").attr('checked', 'checked');}
+else
+jQuery("#ck").attr('checked', 'checked');
+
+$('#decs').summernote({
+height: 300
+});
+
+});</script>
+{% endblock %}

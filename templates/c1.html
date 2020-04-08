@@ -1,0 +1,160 @@
+sql1="Select * from category_manager ORDER BY  order_id=%s"
+        val=(o_id)
+        country_database.cur.execute(sql1,val)
+        result_ordering=country_database.cur.fetchall()
+        print(result_ordering)
+        country_database.conn.commit()
+
+
+ o_id = request.args.get('order_id')
+
+        p_id=request.args.get('id1')
+        action=request.args.get('action')
+        if action=='up':
+            o_id=str(float(o_id)-1.5)
+        else:
+ sql1 = "Select * from slider_manager  ORDER BY  order_id=%s ASC"
+        val = (o_id,)
+        print(o_id)
+        country_database.cur.execute(sql1, val)
+        result_ordering = country_database.cur.fetchall()
+        print("here ordering", result_ordering)
+        country_database.conn.commit()            o_id=str(float(o_id)+1.5)
+
+
+def update_query():
+    result=""
+    count=0
+    try:
+        my_db.connection()
+        sql = "SELECT * FROM article_tbl ORDER BY order_step ASC"
+        my_db.cur.execute(sql)
+        result = my_db.cur.fetchall()
+        for row in result:
+            count= count+1
+            sql = "UPDATE article_tbl SET order_step=%s WHERE id=%s"
+            val=(str(count),row['id'],)
+            my_db.cur.execute(sql, val)
+            my_db.conn.commit()
+    except Exception as err:
+        print(err)
+        my_db.conn.rollback()
+
+    finally:
+        my_db.conn.close()
+    return True
+
+
+
+
+def update_query():
+    result=""
+    count=0
+    try:
+        my_db.connection()
+        sql = "SELECT * FROM article_tbl ORDER BY order_step ASC"
+        my_db.cur.execute(sql)
+        result = my_db.cur.fetchall()
+        for row in result:
+            count= count+1
+            sql = "UPDATE article_tbl SET order_step=%s WHERE id=%s"
+            val=(str(count),row['id'],)
+            my_db.cur.execute(sql, val)
+            my_db.conn.commit()
+    except Exception as err:
+        print(err)
+        my_db.conn.rollback()
+
+    finally:
+        my_db.conn.close()
+    return True
+
+
+
+ print("c",c)
+        setc=set(c)
+        print(setc)
+        print("z",z)
+        setz=set(z)
+        print(setz)
+        ew=setc-setz
+        print(ew)
+
+        for element in c:
+            if element in z:
+                c.remove(element)
+
+
+def update_order():
+    t=1
+    record=''
+    try:
+        print("Herer")
+        country_database.connects()
+
+        sql="SELECT * from slider_manager ORDER BY order_id ASC"
+        print("1")
+        country_database.cur.execute(sql)
+        record = country_database.cur.fetchall()
+        print(record)
+        for i in record:
+
+            s="UPDATE slider_manager SET order_id=%s WHERE id=%s"
+            val=(str(t),i['id'])
+            print(val)
+            print(2)
+            country_database.cur.execute(s, val)
+            t=t+1
+            country_database.conn.commit()
+    except:
+        country_database.conn.rollback()
+    finally:
+        country_database.conn.close()
+    return True
+
+
+
+ send_email('Food Blog Activation Link ',
+                           'We thank you for registerting with Foodblog'
+                           '\n Your activation link is http://127.0.0.1:5000/login/'+a+' \n Thanks and  Raegards:' + user + '\nFoodbolg Team:',
+                           email + '\n Dont share your otp with anyone:')
+
+
+
+
+
+@login_reg.route('/activation_link/<slug>', methods=['GET','POST'] )
+def login_activation(slug):
+
+    error={}
+    result=""
+
+    results = result_front('slider_manager')
+    if request.method=='POST':
+
+        try:
+            country_database.connects()
+
+            val=(slug)
+            print("user_login_val",val)
+            country_database.cur.execute("SELECT * FROM form WHERE  OTP", val)
+
+            result= country_database.cur.fetchone()
+            session['user']=result
+            country_database.conn.commit()
+            sql = "INSERT INTO form(OTP)VALUES(%s)"
+            values = (" ")
+            country_database.cur.execute(sql, values)
+            country_database.conn.commit()
+        except Exception as err:
+            print(err)
+            country_database.conn.rollback()
+        finally:
+            country_database.conn.close()
+        if result is None:
+            error['em']="User And Password not match "
+            return render_template('login.html' ,error=error, result=results)
+        return redirect(url_for('login_reg.login_view'))
+    return render_template('login.html', error=error)
+
+

@@ -1,0 +1,190 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+<div class="row">
+    <!-- ============================================================== -->
+    <!-- validation form -->
+    <!-- ============================================================== -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+               {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+
+                            <div class="card">
+                                <h5 class="card-header">Register New User</h5>
+                                <div class="card-body">
+                                    <form class="needs-validation" action="{{url_for('user_reg1.edit_list', id=result1['id'])}}" method="POST">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="fnm">First name</label>
+                                                <input type="text" class="form-control" id="fnm" placeholder="First name"  name="fname" value={{result1.first}}>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="lnm">Last name</label>
+                                                <input type="text" class="form-control" id="lnm" placeholder="Last name"  name="lname" value={{result1.last}}>
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="unm">User name</label>
+                                                <input type="text" class="form-control" id="unm" placeholder="User name" readonly name="user" value="{{result1.user}}">
+
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="email">Email</label>
+                                                <input type="text" class="form-control" onchange="myemail();" id="email" placeholder="Email"  readonly name="email" value="{{result1.email}}"
+                                               >
+
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="nnm">Phone number</label>
+                                                <input type="text" class="form-control" id="nnm"  name="number" value="{{result1.number}}">
+
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="pnm">Password</label>
+                                                <input type="password" class="form-control" id="pnm" placeholder="password"  name="pwd">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <label for="cpnm">Confirm Password</label>
+                                                <input type="text" class="form-control" id="cpnm" placeholder="password"  name="conpwd">
+                                                <div class="valid-feedback">
+                                                    Looks good!
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="country">Country</label>
+                                                <select  class="form-control" id="country" placeholder="Country" name="cnm" onchange="myfunc();"
+                                                data-id="{{result1.country}}">
+                                                <option value="0">Select</option>
+                                                   {% for row in result %}
+                                                <option value="{{row['id']}}">{{row['name']}}</option>
+                                                 {% endfor %}
+                                                </select>
+
+                                            </div>
+                                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="state">State</label>
+                                                <select class="form-control" id="state" placeholder="State" name="snm"  onchange="mystate();"
+                                                        data-id="{{result1.state}}">
+                                                    <option value="0">Select</option>
+
+                                                </select>
+
+
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="city">City</label>
+                                                <select class="form-control" id="city" placeholder="City" name="cinm"  data-id="{{result1.city}}">
+                                                <option value="0">Selcet</option>
+
+                                                </select>
+
+                                            </div>
+
+                                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 mb-2">
+                                                <label for="znm">Zip</label>
+                                                <input type="text" class="form-control" id="znm" placeholder="Zip" name="znm" value="{{result1.zip}}">
+
+                                            </div>
+
+
+                                            </div>
+
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                                <button class="btn btn-primary" type="submit">UPDATE</button>
+                                            </div>
+                                        <div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    <!-- ============================================================== -->
+    <!-- end validation form -->
+    <!-- ============================================================== -->
+</div>
+
+{% endblock %}
+{% block js_contant%}
+<script>
+jQuery(document).ready(function(){
+    var c_id=jQuery('#country').attr('data-id');
+    $('#country').val(c_id);
+    console.log(c_id);
+    get_state_by_country_id(c_id);
+
+
+});
+function get_state_by_country_id(country_id){
+    console.log(country_id);
+        $.ajax({
+            url:'/get_state',
+            data:{cnm:country_id},
+            type:'GET',
+            dataType:'json',
+            success:function(response){
+            if(response.type == 'get_state1'){
+                console.log(response.result);
+                $("#state").html('');
+                $("#state").append('<option value="0">(please select a State)</option>');
+                $.each(response.result, function(key, val) {
+
+                    $("#state").append("<option value="+val['id']+">"+val['name']+"</option>");
+                });
+                var s_id=jQuery('#state').attr('data-id');
+                $('#state').val(s_id);
+                get_city_by_state_id(s_id);
+            }
+            },
+            error:function(error){
+            console.log(error);
+            }
+        });
+        }
+
+function get_city_by_state_id(state_id){
+console.log(state_id);
+    $.ajax({
+        url:'/get_city',
+        data:{snm:state_id},
+        type:'GET',
+        dataType:'json',
+        success:function(response){
+        if(response.type == 'get_city'){
+            $("#city ").html('');
+            $("#city").append('<option value="0">(please select a City)</option>');
+            $.each(response.result, function(key, val) {
+            $("#city ").append("<option value="+val['id']+">"+val['name']+"</option>");
+            });
+            var s_id=jQuery('#city').attr('data-id');
+            $('#city').val(s_id);
+            }
+        },
+        error:function(error){
+        console.log(error);
+        }
+    });
+    }
+</script>
+{% endblock %}

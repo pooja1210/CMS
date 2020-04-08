@@ -1,0 +1,207 @@
+{% extends 'home.html' %}
+
+{% block content%}
+<!-- Hero section -->
+	<section class="page-top-section set-bg" data-setbg=" {{url_for('static', filename='img_food/page-top-bg.jpg')}}">
+		<div class="container">
+			<h2>Resgistration</h2>
+		</div>
+	</section>
+	<!-- Hero section end -->
+	<section class="contact-section spad">
+		<div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages|length > 0 %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible" >
+                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+                    <h2>{{message}}</h2>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+                 {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+			<div class="row">
+                 {% with messages = get_flashed_messages() %}
+            {% if messages|length > 0 %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible" >
+                             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+
+                    <h2>{{message}}</h2>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+                 {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+				<div class="col-lg-8">
+					<div  class="contact-form-warp">
+						<h4>Register here</h4>
+                          <form     class="contact-form" action="{{url_for('user_reg.frm')}}"  method="POST">
+
+
+							<div class="row">
+								<div class="col-md-6">
+									 <input type="text"  id="fnm" placeholder="First name"  name="fname" value="{{val['a']}}">
+								</div>
+								<div class="col-md-6">
+									<input type="text" id="lnm" placeholder="Last name"  name="lname" value="{{val['b']}}">
+								</div>
+
+
+
+								<div class="col-md-6">
+									<input type="text"  id="unm" placeholder="User name"  name="user" value="{{val['c']}}">
+
+								</div>
+                                <div class="col_md_6"  style="width: 45%; margin-left:20px;">
+                                     <input type="text"  id="enm" placeholder="Email"  name="email" value="{{val['d']}}"  onchange="myemail();">
+
+                                </div>
+                                <div class="col-md-6">
+								 <input type="text"  id="pnm" placeholder="password"  name="pwd" value="{{val['f']}}">
+								</div>
+								<div class="col-md-6">
+									  <input type="text"  id="cpnm" placeholder="confirm-password"  name="conpwd">
+								</div>
+                                 <div class="col_md_6"  >
+                                       <input type="text"  id="znm" placeholder="Zip" name="znm" value="{{val['j']}}">
+                                  </div>
+                                 <div class="col_md_6" style="margin-left:70px; width: 45%;"  >
+                                         <input type="text" class="form-control" id="nnm" placeholder="Phone number"  name="number" value="{{val['e']}}">
+                                  </div>
+
+
+
+                                  <div class="col_md_3"  >
+                                        <select style="background: #eff3f7; height: 53px; font-size: 14px;width: 100%;  margin-bottom: 25px;width: 100%;border: none;"  id="country" placeholder="Country" name="cnm" value="{{val['g']}}" onchange="myfunc();">
+                                                <option value="0"> Country</option>
+                                                   {% for row in record %}
+                                                <option value="{{row['id']}}">{{row['name']}}</option>
+                                                 {% endfor %}
+                                                </select>
+                                  </div>
+                                   <div class="col_md_6" style="margin-left:40px; width: 25%;" >
+                                        <select  style="background: #eff3f7; height: 53px; font-size: 14px;width: 100%; margin-bottom: 25px;width: 100%;border: none;" id="state" placeholder="State" name="snm" value="{{val['i']}}" onchange="mystate();">
+                                                    <option value="0">State</option>
+
+                                                </select>
+                                   </div>
+                                   <div class="col_md_3" style="margin-left:40px; width: 25%;">
+                                       <select style="background: #eff3f7; height: 53px; font-size: 14px;width: 100%; margin-bottom: 25px;width: 100%;border: none;"  class="form-control" id="city" placeholder="City" name="cinm" value="{{val['h']}}">
+                                                <option value="0">City</option>
+
+                                                </select>
+
+
+                                  </div>
+                                <div class="col-md-12">
+                                    <button class="site-btn">Send</button>
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
+
+						</form>
+					</div>
+				</div>
+				<div class="col-xs-3">
+					<div class="contact-logo">
+
+						<img src=  " {{url_for('static', filename='img_food/logo.png')}}" alt="">
+					</div>
+					<div class="contact-info">
+						<ul class="ct-list">
+							<li>
+								<h6>Address:</h6>
+								<p>481 Creekside Lane Avila</p>
+								<p>Beach, CA 93424</p>
+							</li>
+							<li>
+								<h6>Phone:</h6>
+								<p>+53 345 7953 32453</p>
+								<p>+53 345 7557 822112</p>
+							</li>
+							<li>
+								<h6>Email:</h6>
+								<p>yourmail@gmail.com</p>
+							</li>
+						</ul>
+						<div class="contact-social">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- map -->
+
+		</div>
+	</section>
+	<footer class="footer-section set-bg" data-setbg= " {{url_for('static', filename='img_food/footer-bg.jpg')}}">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="footer-logo">
+						<img src="img/logo.png" alt="">
+					</div>
+					<div class="footer-social">
+						<a href="#"><i class="fa fa-pinterest"></i></a>
+						<a href="#"><i class="fa fa-facebook"></i></a>
+						<a href="#"><i class="fa fa-twitter"></i></a>
+						<a href="#"><i class="fa fa-dribbble"></i></a>
+						<a href="#"><i class="fa fa-behance"></i></a>
+						<a href="#"><i class="fa fa-linkedin"></i></a>
+					</div>
+				</div>
+				<div class="col-lg-6 text-lg-right">
+					<ul class="footer-menu">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">Features</a></li>
+						<li><a href="#">Receipies</a></li>
+						<li><a href="#">Reviews</a></li>
+						<li><a href="#">Contact</a></li>
+					</ul>
+					<p class="copyright"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+{% endblock %}
+

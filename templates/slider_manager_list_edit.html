@@ -1,0 +1,138 @@
+{% extends 'index.html' %}
+
+
+
+
+
+  {% block content%}
+         <div class="row">
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+<!--                    {% if error %}-->
+<!--                    <div class="alert alert-danger alert-dismissible">-->
+<!--                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>-->
+<!--                              <h5>There were errors during registration:</h5>-->
+<!--                              <ul>-->
+<!--                                  {% for key, value in error.items() %}-->
+<!--                                  <li>-->
+<!--                                        {{ value }}-->
+<!--                                  </li>-->
+<!--                                  {% endfor %}-->
+<!--                              </ul>-->
+
+
+<!--                            </div>-->
+<!--                            {% else %}-->
+                                {% with messages = get_flashed_messages() %}
+                                        {% if messages|length > 0 %}
+                                             <div class="alert alert-success alert-dismissible">
+                                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                <h2>{{messages}}</h2>
+                                            </div>
+                                        {% endif %}
+                                {% endwith %}
+                            {% endif %}
+
+
+
+                            <div class="card">
+                                <h5 class="card-header">Slider Manager</h5>
+                                <div class="card-body">
+                                    <form action="{{url_for('sld_manager.slider_edit', id=record.id)}}" method="post" enctype="multipart/form-data" >
+
+                                        <div class="form-group row">
+                                            <label for="title" class="col-12 col-sm-3 col-form-label text-sm-right">Title</label>
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <input type="text"  placeholder="Title" name="title" id="title" value="{{record['title']}}"class="form-control">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-sm-right" id="status" data-id="{{record.status}}">Status</label>{{record.status}}
+                                            <div class="col-sm-6">
+                                                <div class="custom-controls-stacked">
+                                                    <label class="custom-control custom-radio">
+                                                        <input id="ck1" name="ck" type="radio" value="Publish" checked class="custom-control-input"><span class="custom-control-label">Publish </span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio">
+                                                        <input id="ck" name="ck" type="radio" value="UnPublish"    class="custom-control-input"><span class="custom-control-label">Unpublish </span>
+                                                    </label>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group row">
+                                            <label for="image" class="col-12 col-sm-3 col-form-label text-sm-right">Image</label>
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <input type="file" name="image" id="image" class="form-control">
+                                            </div>
+                                        </div>
+                                         <div class="form-row" style="margin-left:25%;">
+                                            <div class="col-12 col-sm-3 col-form-label text-sm-right form-group form-check">
+                                                <img  src="{{url_for('sld_manager.get_article__image_path', filename=record.image)}}" style="width: 250px; height: 100px;">
+
+                                                <input class="form-check-input" type="checkbox" name="pt" id="pt" >
+                                                <label class="form-check-label" > permanent Delete </label>
+
+                                            </div>
+
+                                            <div class="col-12 col-sm-8 col-lg-6">
+
+                                            </div>
+
+                                        </div>
+<!--                                        <div class="form-group row">-->
+
+
+<!--                                            <label for="image" class="col-12 col-sm-3 col-form-label text-sm-right"></label>-->
+<!--                                            <div class="col-12 col-sm-8 col-lg-6">-->
+<!--                                               <img src="{{url_for('sld_manager.get_article__image_path', filename=record.image)}}", style="width: 150px; height: 100px;">-->
+<!--                                            </div>-->
+
+<!--                                        </div>-->
+
+
+                                        <div class="form-group row text-right">
+                                            <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                                                <button type="submit" class="btn btn-space btn-primary">Submit</button>
+
+                                            </div>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+
+                    </div>
+
+
+                <!-- ============================================================== -->
+                <!-- end form -->
+                <!-- ============================================================== -->
+        </div>
+
+    {% endblock %}
+
+{% block js_contant %}
+ <script>
+        jQuery(document).ready(function(){
+
+            var status=jQuery('#status').attr('data-id');
+
+            if (status==='Publish' )
+                jQuery("#ck1").attr('checked', 'checked');
+            else
+                jQuery("#ck").attr('checked', 'checked');
+
+
+        });
+
+    </script>
+{% endblock %}
+
+

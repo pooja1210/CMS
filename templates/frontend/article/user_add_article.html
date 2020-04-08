@@ -1,0 +1,172 @@
+{% extends 'login_view.html' %}
+{% block css%}
+ <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.css" rel="stylesheet">
+{% endblock %}
+
+ {% block content%}
+
+
+<div class="row">
+	<div class="container">
+	  {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+			<h3>Please add following field in your Article</h3>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+
+        {%endif%}
+
+		 {% with messages = get_flashed_messages() %}
+            {% if messages|length > 0 %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <h2>{{message}}</h2>
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+</div>
+	</div>
+	<section class="contact-section spad">
+		<div class="container">
+			<div class="row">
+
+
+
+				<div class="col-lg-8">
+					<div class="contact-form-warp">
+						<h4>Add Your favorite article</h4>
+						<form class="contact-form" action="/user_add_article" method="POST" enctype="multipart/form-data" >
+
+
+							<div class="row">
+								<div class="col-md-6">
+								 <input type="text"  placeholder="Title"   value="{{val['title']}}"  name="title" id="title" class="form-control" onchange="check_title();">
+								</div>
+								<div class="col-md-6">
+									 <select class="form-control form-control-lg" style="height: 53px; background-color:#eff3f7;" value="{{val['cat_id']}}"  id="cat_id" name="cat_id">
+                                                    <option value="0" selected="selected">Select Category</option>
+                                                    {% for row in myresult %}
+                                                        <option value="{{ row['title'] }}" >{{ row.title}}</option>
+                                                     {% endfor %}
+
+                                                </select>
+								</div>
+								<div class="col-md-6">
+                                <input type="file"   placeholder="Title" name="image"   id="image" accept="image/*" class="form-control" >
+								</div>
+
+								<div class="col-md-12">
+
+
+										  <textarea   class="border border-danger x" rows="1000" style="background-color:#eff3f7;" id="summernote" value="{{val['desc']}}"  name="summernote"></textarea>
+
+
+									<button class="site-btn">Send</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="contact-logo">
+
+						<img src=  " {{url_for('static', filename='img_food/logo.png')}}" alt="">
+					</div>
+					<div class="contact-info">
+						<ul class="ct-list">
+							<li>
+								<h6>Address:</h6>
+								<p>481 Creekside Lane Avila</p>
+								<p>Beach, CA 93424</p>
+							</li>
+							<li>
+								<h6>Phone:</h6>
+								<p>+53 345 7953 32453</p>
+								<p>+53 345 7557 822112</p>
+							</li>
+							<li>
+								<h6>Email:</h6>
+								<p>yourmail@gmail.com</p>
+							</li>
+						</ul>
+						<div class="contact-social">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- map -->
+
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block jss%}
+
+<script>
+
+ $(document).ready(function() {
+
+        $('#summernote').summernote({
+        height: 200,
+
+        });
+
+
+
+
+    });
+
+
+</script>
+ <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote.js"></script>
+<script>
+
+function check_title(){
+     $.ajax({
+     url:'/get_title',
+     data:{'eml':$('#title').val()},
+     type:'GET',
+     dataType:'json',
+     success:function(response){
+        if(response.type == 'check_title'){
+
+             $(".error").html('');
+             if(response. record!=null){
+                $('#title').after('<span class="error" style="color:red;">Title is already taken, Please choose another one</span>');
+
+                }
+            }
+      },
+      error: function(error){
+      console.log(error);
+      }
+
+     });
+
+   }
+
+
+
+</script>
+{%endblock%}
+
+

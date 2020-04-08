@@ -1,0 +1,46 @@
+
+{% extends 'login_view.html' %}
+
+{% block content%}
+<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			{%for row in result%}
+			<div class="hero-slide-item set-bg" data-setbg="{{ url_for('sld_manager.get_article__image_path', filename=row.image) }}">
+				<div class="hs-text">
+					<h2 class="hs-title-1"><span>Healthy Recipes</span></h2>
+					<h2 class="hs-title-2"><span>from the best chefs</span></h2>
+					<h2 class="hs-title-3"><span>for all the foodies</span></h2>
+				</div>
+			</div>
+			{%endfor%}
+
+		</div>
+	</section>
+
+
+<table class="table table-striped table-bordered first">
+
+                                            <tr>
+
+												<th>Image</th>
+												 <th>Title</th>
+											</tr>
+
+
+
+
+                                          {% for row in myresult%}
+											 <tr>
+
+
+											<td><img src="{{ url_for('cat_manager.upload_img', filename=row.image) }}" style="height:100px; width:150px;" ></td>
+
+												 <td>{{row['title']}}</td>
+                                               </tr>
+
+										     {% endfor %}
+
+											</table>
+
+
+    {% endblock %}

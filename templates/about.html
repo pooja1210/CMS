@@ -1,0 +1,143 @@
+
+{% extends 'home.html' %}
+	<!-- Header section end -->
+
+{% block content%}
+	<!-- Hero section -->
+	<section class="page-top-section set-bg" data-setbg="{{url_for('static', filename='img_food/page-top-bg.jpg')}}">
+		<div class="container">
+			<h2>About us</h2>
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+
+	<!-- Search section -->
+<!--	<div class="search-form-section">-->
+<!--		<div class="sf-warp">-->
+<!--			<div class="container">-->
+<!--				<form class="big-search-form">-->
+<!--					<select>-->
+<!--						<option>All Recipes Categories</option>-->
+<!--						<option>Pizza</option>-->
+<!--						<option>Salads</option>-->
+<!--						<option>Desserts</option>-->
+<!--						<option>Side Dishes</option>-->
+<!--					</select>-->
+<!--					<select>-->
+<!--						<option>All Ingredients</option>-->
+<!--						<option>Breakfast</option>-->
+<!--						<option>Lunch</option>-->
+<!--						<option>Dinner</option>-->
+<!--					</select>-->
+<!--					<input type="text" placeholder="Search Receipies">-->
+<!--					<button class="bsf-btn">Search</button>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+	<!-- Search section end -->
+
+
+	<!-- About section -->
+	<section class="about-section spad">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 about-text">
+					<h2>About our great team</h2>
+					<p style=" text-align: justify;">Wollenzien has partnered with general manager and co-owner Deacon Eells and the two have a long, storied history growing up together in small town River Falls, WI, moving and immersing themselves in a variety of Twin Cities restaurants, and now returning to a close knit community for their first solo venture.
+
+The menu takes its inspiration from classic American dishes like beef, lamb, pork and walleye, creatively prepared, vibrantly presented, and influenced by cuisines around the world reflecting the global, sophisticated, expanded palates of today.
+
+The restaurant is located in a historic Excelsior brick building dating from 1886. Creating a sense of the natural evolution of the building was a goal of the designer, Kara Karpenske of Kamarron Design, Inc. (KDI) of Edina. New rustic floors, tall booths, oversized chandeliers, and industrial lighting enhance the look of the exposed original brick. Antiqued mirrored panels set off the white marble design bar top and warm toned leather bar stools create an inviting space to enjoy Chef Eli’s crafted cocktail menu regionally sourced from such boutique distilleries as 45th Parallel Vodka (New Richmond, WI), North Shore Gin #11 (Lake Bluff, IL), Cedar Ridge Iowa Bourbon (Swisher, Iowa), and locally produced Bittercube Bitters (Minneapolis, MN). A large selection of wine and MN sourced tap beers complement the full bar.
+
+Open for lunch and dinner seven days a week, Coalition will become a neighborhood fixture and a Lake Minnetonka destination for quality dining.</p>
+<p>foodblog@gmail.com</p>
+                    <p>phone_no:7845321654</p>
+				</div>
+				<div class="col-lg-6">
+
+					<img src=" {{url_for('static', filename='img_food/about.jpg')}}" alt="">
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- About section end -->
+
+
+	<!-- Facts section -->
+	<section class="facts-section">
+		<div class="facts-warp">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-sm-6 fact-item">
+						<div class="fact-icon">
+
+							<img src= " {{url_for('static', filename='img_food/icon/1.png')}}"  alt="">
+						</div>
+						<h2>1287</h2>
+						<p>Amazing receipies</p>
+					</div>
+					<div class="col-lg-3 col-sm-6 fact-item">
+						<div class="fact-icon">
+							<img src=" {{url_for('static', filename='img_food/icon/2.png')}}"  alt="">
+						</div>
+						<h2>25</h2>
+						<p>Wine pairings</p>
+					</div>
+					<div class="col-lg-3 col-sm-6 fact-item">
+						<div class="fact-icon">
+							<img src=" {{url_for('static', filename='img_food/icon/3.png')}}"  alt="">
+						</div>
+						<h2>471</h2>
+						<p>Meat receipies</p>
+					</div>
+					<div class="col-lg-3 col-sm-6 fact-item">
+						<div class="fact-icon">
+							<img src=" {{url_for('static', filename='img_food/icon/4.png')}}"  alt="">
+						</div>
+						<h2>326</h2>
+						<p>Desert receipies</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Facts section end -->
+
+
+	<!-- Newsletter section -->
+
+	<!-- Newsletter section end -->
+
+<!-- Gallery section -->
+	<div class="gallery">
+		<div class="gallery-slider owl-carousel">
+				{%for row in  art_result%}
+
+			<div class="gs-item set-bg" data-setbg="{{ url_for('article_manager_reg.get_article__image_path', filename=row.file) }}"></div>
+
+			{% endfor %}
+		</div>
+	</div>
+	<!-- Gallery section end -->
+
+
+
+
+
+
+	<!-- Footer section  -->
+
+	<!-- Footer section end -->
+{% endblock %}
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+		<script src="{{url_for('static', filename='js_food/jquery-3.2.1.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js_food/owl.carousel.min.js')}}"></script>
+	<script src="{{url_for('static', filename='js_food/main.js')}}"></script>
+
+</body>
+</html>

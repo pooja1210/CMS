@@ -1,0 +1,125 @@
+
+{% extends 'home.html' %}
+	<!-- Header section end -->
+{% block content%}
+	<!-- Hero section -->
+	<section class="hero-section">
+		<div class="hero-slider owl-carousel">
+			{%for row in result%}
+			<div class="hero-slide-item set-bg" data-setbg="{{ url_for('sld_manager.get_article__image_path', filename=row.image) }}">
+				<div class="hs-text">
+					<h2 class="hs-title-1"><span>Healthy Recipes</span></h2>
+					<h2 class="hs-title-2"><span>from the best chefs</span></h2>
+					<h2 class="hs-title-3"><span>for all the foodies</span></h2>
+				</div>
+			</div>
+			{%endfor%}
+			
+		</div>
+	</section>
+	<!-- Hero section end -->
+
+
+	<!-- Add section end -->
+	<section class="add-section spad">
+		<div class="container">
+			<div class="add-warp">
+				<div class="add-slider owl-carousel">
+					{%for row in  my_result%}
+					<div class="as-item set-bg" data-setbg="{{ url_for('cat_manager.upload_img', filename=row.image) }}"></div>
+					{%endfor%}
+				</div>
+				<div class="row add-text-warp">
+					<div class="col-lg-4 col-md-5 offset-lg-8 offset-md-7">
+						<div class="add-text text-white">
+							<div class="at-style"></div>
+							<div class="add-slider owl-carousel">
+					{%for row in  my_result%}
+							<h2 class="as-item set-bg" style="background-color:#ff2a6b;">{{row.title}}</h2>
+								{%endfor%}
+							</div>
+
+							<ul>
+								<li>Tasty</li>
+								<li>Delicious</li>
+								<li>Healthy</li>
+								<li>Fun</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Add section end -->
+
+
+	<!-- Recipes section -->
+	<section class="recipes-section spad pt-0">
+		<div class="container">
+			<div class="section-title">
+				<h2>Latest recipes</h2>
+			</div>
+			<div class="row">
+				{%for row in  art_result%}
+				<div class="col-lg-4 col-md-6">
+					<div class="recipe">
+						<img src="{{ url_for('article_manager_reg.get_article__image_path', filename=row.file) }}" alt="">
+						<div class="recipe-info-warp">
+							<div class="recipe-info">
+								<a href="{{ url_for('login_reg.login_image_link_view', slug=row.slug) }}" style="color:yellow;">{{row.title}}</a>
+
+								<div class="rating">
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star"></i>
+									<i class="fa fa-star is-fade"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+
+
+
+
+							</div>
+		</div>
+	</section>
+	<!-- Recipes section end -->
+
+
+	<!-- Footer widgets section -->
+
+	<!-- Footer widgets section end -->
+
+
+	<!-- Review section end -->
+
+	<!-- Review section end -->
+
+
+	<!-- Gallery section -->
+	<div class="gallery">
+		<div class="gallery-slider owl-carousel">
+				{%for row in  art_result%}
+
+			<div class="gs-item set-bg" data-setbg="{{ url_for('article_manager_reg.get_article__image_path', filename=row.file) }}"></div>
+
+			{% endfor %}
+		</div>
+	</div>
+	<!-- Gallery section end -->
+
+
+	<!-- Footer section  -->
+
+	<!-- Footer section end -->
+{% endblock %}
+
+
+
+	<!--====== Javascripts & Jquery ======-->
+

@@ -1,0 +1,156 @@
+{% extends 'index.html' %}
+
+  {% block add_cat_css%}
+ <link href="{{ url_for('static', filename = 'css/summernote-bs4.css') }}" rel="stylesheet">
+
+{% endblock %}
+
+{% block content %}
+
+<form action="{{url_for('article_manager_reg.add_article')}}" method="POST" enctype="multipart/form-data" >
+
+    {%if error %}
+        <div class="alert alert-danger">
+            <h2>Errors</h2>
+              {%for key,values in error.items()%}
+            <ul>
+                <li>{{values}}</li>
+            </ul>
+            {%endfor%}
+
+        </div>
+        {%endif%}
+    <div class="container">
+
+          <div class="form-group row">
+
+
+                                            <label for="title" class="col-12 col-sm-3 col-form-label text-sm-right" >Title</label>
+
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <input type="text"  placeholder="Title" name="title" id="title" class="form-control" onchange="check_title();">
+                                            </div>
+                                        </div>
+
+
+
+
+                                         <div class="form-group row">
+                                            <label for="decs" class="col-12 col-sm-3 col-form-label text-sm-right">Description</label>
+                                            <div class="col-12 col-sm-8 col-lg-6 email editor col-form-label  p-0">
+                                                <textarea class="form-control " id="decs" name="summernote" rows="5" cols="50" ></textarea>
+
+                                            </div>
+                                         </div>
+    <div class="form-group row">
+                                            <label for="title" class="col-12 col-sm-3 col-form-label text-sm-right">Image</label>
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <input type="file"  placeholder="Title" name="image"  id="image" accept="image/*" class="form-control" >
+                                            </div>
+                                        </div>
+<!--      <div class="form-group row">-->
+<!--                                            <label class="col-sm-3 col-form-label text-sm-right">Status</label>-->
+<!--                                            <div class="col-sm-6">-->
+<!--                                                <div class="custom-controls-stacked">-->
+<!--                                                    <label class="custom-control custom-radio">-->
+<!--                                                        <input id="ck1" name="ck" type="radio" value="Publish"  checked class="custom-control-input"><span class="custom-control-label">Publish </span>-->
+<!--                                                    </label>-->
+<!--                                                    <label class="custom-control custom-radio">-->
+<!--                                                        <input id="ck" name="ck" type="radio" value="UnPublish" class="custom-control-input"><span class="custom-control-label">UnPublish</span>-->
+<!--                                                    </label>-->
+
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+
+
+
+     <div class="form-group row">
+                                            <label class="col-sm-3 col-form-label text-sm-right" id="status" data-id="">Status</label>
+                                            <div class="col-sm-6">
+                                                <div class="custom-controls-stacked" >
+                                                    <label class="custom-control custom-radio">
+                                                        <input id="ck1" name="ck" type="radio" value="Publish" checked class="custom-control-input" ><span class="custom-control-label">Publish </span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio">
+                                                        <input id="ck" name="ck" type="radio" value="UnPublish"   class="custom-control-input" ><span class="custom-control-label">UnPublish</span>
+                                                    </label>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="title" class="col-sm-3 col-form-label text-sm-right">Category-Title</label>
+                                            <div class="col-12 col-sm-8 col-lg-6">
+                                                <select class="form-control form-control-lg" id="cat_id" name="cat_id">
+                                                    <option value="0" selected="selected">(Select Category)</option>
+                                                    {% for row in myresult %}
+                                                        <option value="{{ row['title'] }}" >{{ row.title}}</option>
+                                                     {% endfor %}
+
+                                                </select>
+                                            </div>
+                                        </div>
+  <div class="form-group row text-right">
+                                            <div class="col col-sm-10 col-lg-9 offset-sm-1 offset-lg-0">
+                                                <button type="submit" class="btn btn-space btn-primary">Submit</button>
+
+                                            </div>
+
+
+                                        </div>
+
+        </div>
+</form>
+
+
+
+{% endblock %}
+
+ {% block js_contant %}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+ <script src="{{ url_for('static', filename = 'libs/js/summernote-bs4.js') }}"></script>
+
+
+<script>
+
+
+$('#decs').summernote({
+                  height: 300
+              });
+
+
+</script>
+<script>
+
+function check_title(){
+     $.ajax({
+     url:'/get_title',
+     data:{'eml':$('#title').val()},
+     type:'GET',
+     dataType:'json',
+     success:function(response){
+        if(response.type == 'check_title'){
+
+             $(".error").html('');
+             if(response. record!=null){
+                $('#title').after('<span class="error" style="color:red;">Title is already taken, Please choose another one</span>');
+
+                }
+            }
+      },
+      error: function(error){
+      console.log(error);
+      }
+
+     });
+
+   }
+
+
+
+</script>
+{% endblock %}
